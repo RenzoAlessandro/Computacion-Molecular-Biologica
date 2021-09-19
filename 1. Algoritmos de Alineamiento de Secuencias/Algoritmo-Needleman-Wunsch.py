@@ -1,32 +1,32 @@
 import sys
 import numpy as np
 
-nombre_fichero = "Salida .txt"
+nombre_fichero = "Salida.txt"
 distancia = -2
 identicoMatch = 1
 noIdenticoMatch = -1
 
 def guardar_fichero(F):
-    f = open(nombre_fichero, "w")
+    fichero = open(nombre_fichero, "w")
 
-    f.write('           ')
+    fichero.write('           ')
     for i in range(column-1):
-        f.write(secuencia_1[i]+'      ')
+        fichero.write(secuencia_1[i]+'      ')
 
-    f.write('\n')
+    fichero.write('\n')
 
     secuencia2_t = ' '+ secuencia_2
 
     for r in range(row):
-        f.write(secuencia2_t[r])
+        fichero.write(secuencia2_t[r])
         for c in range(column):
-            f.write(' [ '+ '{}'.format(F[r][c][0])+'] ')
-            #f.write(' [ '+ '{}'.format(F[r][c][0])+' '+'{}'.format(F[r][c][1])+'] ')
-        f.write('\n')
-    f.close()
+            fichero.write(' [ '+ '{}'.format(F[r][c][0])+'] ')
+            #fichero.write(' [ '+ '{}'.format(F[r][c][0])+' '+'{}'.format(F[r][c][1])+'] ')
+        fichero.write('\n')
+    fichero.close()
 
-    f = open(nombre_fichero, "r")
-    print(f.read())
+    fichero = open(nombre_fichero, "r")
+    print(fichero.read())
 
 def get_score(secuencia1, secuencia2):
     score = 0
@@ -53,9 +53,9 @@ def get_score(secuencia1, secuencia2):
     print("\b",end="")
     secuencia3 = secuencia3 + ' = ' + str(score) + '\n'
     print(' =', score)
-    f = open(nombre_fichero, "a+")
-    f.write(secuencia3)
-    f.close()
+    fichero = open(nombre_fichero, "a+")
+    fichero.write(secuencia3)
+    fichero.close()
  
 			
 def alineamiento_optimo(Final, i, j, alineacion_secuencia_1 = "", alineacion_secuencia_2 = ""):
@@ -63,11 +63,11 @@ def alineamiento_optimo(Final, i, j, alineacion_secuencia_1 = "", alineacion_sec
     if Final[i][j][1]==0:
         print(alineacion_secuencia_1)
         print(alineacion_secuencia_2)
-        f = open(nombre_fichero, "a+")
-        f.write('\n')
-        f.write(alineacion_secuencia_1 + '\n')
-        f.write(alineacion_secuencia_2 + '\n')
-        f.close()
+        fichero = open(nombre_fichero, "a+")
+        fichero.write('\n')
+        fichero.write(alineacion_secuencia_1 + '\n')
+        fichero.write(alineacion_secuencia_2 + '\n')
+        fichero.close()
         get_score(alineacion_secuencia_1, alineacion_secuencia_2)
         print("\n")
         return
@@ -138,11 +138,11 @@ def alineacion_global(Final, i, j):
 
 if __name__ == "__main__":
 
-    #secuencia_1 = "AGC"
-    #secuencia_2 = "AAAC"
+    secuencia_1 = "AGC"
+    secuencia_2 = "AAAC"
 
-    secuencia_1 = "ACTGATTCA"
-    secuencia_2 = "ACGCATCA"
+    #secuencia_1 = "ACTGATTCA"
+    #secuencia_2 = "ACGCATCA"
 
     # Numero de Columnas y Filas de la Matriz Final
     column = len(secuencia_1)+1
