@@ -1,13 +1,17 @@
 import sys
 import numpy as np
+sys.setrecursionlimit(5000)
 
-nombre_fichero = "Salida.txt"
+nombre_fichero = "Comparacion_.txt"
 distancia = -2
 identicoMatch = 1
 noIdenticoMatch = -1
 
 def guardar_fichero(F):
     fichero = open(nombre_fichero, "w")
+
+    fichero.write('CADENA 1: '+ secuencia_1 + '\n')
+    fichero.write('CADENA 2: '+ secuencia_2 + '\n')
 
     fichero.write('           ')
     for i in range(column-1):
@@ -20,8 +24,8 @@ def guardar_fichero(F):
     for r in range(row):
         fichero.write(secuencia2_t[r])
         for c in range(column):
-            fichero.write(' [ '+ '{}'.format(F[r][c][0])+'] ')
-            #fichero.write(' [ '+ '{}'.format(F[r][c][0])+' '+'{}'.format(F[r][c][1])+'] ')
+            #fichero.write(' [ '+ '{}'.format(F[r][c][0])+'] ')
+            fichero.write(' [ '+ '{}'.format(F[r][c][0])+' '+'{}'.format(F[r][c][1])+'] ')
         fichero.write('\n')
     fichero.close()
 
@@ -88,15 +92,16 @@ def alineamiento_optimo(Final, i, j, alineacion_secuencia_1 = "", alineacion_sec
             i = i-1
             j = j-1
         # U - Diferentes Letras
+        elif Final[i][j][1]=='L':
+            alineacion_secuencia_1 = secuencia_1[j-1] + alineacion_secuencia_1
+            alineacion_secuencia_2 = "-" + alineacion_secuencia_2
+            j = j-1
+            
+        # L - Diferentes Letras
         elif Final[i][j][1]=='U':
             alineacion_secuencia_1 = "-" + alineacion_secuencia_1
             alineacion_secuencia_2 = secuencia_2[i-1] + alineacion_secuencia_2
             i = i-1
-        # L - Diferentes Letras
-        else:
-            alineacion_secuencia_2 = "-" + alineacion_secuencia_2
-            alineacion_secuencia_1 = secuencia_1[j-1] + alineacion_secuencia_1
-            j = j-1
 
         alineamiento_optimo(Final, i, j, alineacion_secuencia_1, alineacion_secuencia_2)			
 
@@ -138,11 +143,11 @@ def alineacion_global(Final, i, j):
 
 if __name__ == "__main__":
 
-    secuencia_1 = "AGC"
-    secuencia_2 = "AAAC"
+    #secuencia_1 = "AGC"
+    #secuencia_2 = "AAAC"
 
-    #secuencia_1 = "ACTGATTCA"
-    #secuencia_2 = "ACGCATCA"
+    secuencia_1 = "GGGGGGGACACCACA"
+    secuencia_2 = "GGGCATGGACATTCTC"
 
     # Numero de Columnas y Filas de la Matriz Final
     column = len(secuencia_1)+1

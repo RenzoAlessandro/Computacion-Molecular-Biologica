@@ -1,13 +1,16 @@
 import sys
 import numpy as np
 
-nombre_fichero = "Salida.txt"
+nombre_fichero = "Salida_Local_.txt"
 distancia = -2
 identicoMatch = 1
 noIdenticoMatch = -1
 
 def guardar_fichero(F):
     fichero = open(nombre_fichero, "w")
+
+    fichero.write('CADENA 1: '+ secuencia_1 + '\n')
+    fichero.write('CADENA 2: '+ secuencia_2 + '\n')
 
     fichero.write('          ')
     for i in range(column-1):
@@ -22,7 +25,7 @@ def guardar_fichero(F):
         for c in range(column):
             fichero.write(' [ '+ '{}'.format(F[r][c][0])+' ] ')
             #fichero.write(' [ '+ '{}'.format(F[r][c][0])+':'+'{}'.format(F[r][c][1])+' ] ')
-        fichero.write('\n')
+        fichero.write('\n') 
     fichero.close()
 
     fichero = open(nombre_fichero, "r")
@@ -31,12 +34,15 @@ def guardar_fichero(F):
 def alineamiento_optimo(Final, i, j, alineacion_secuencia_1 = "", alineacion_secuencia_2 = ""):
     # Caso Base - Cuando llegamos al Final
     if Final[i][j][0]==0:
+        print ("Subsecuencia: ")
         print (alineacion_secuencia_1)
         print (alineacion_secuencia_2)
+        print ("Tamaño: ", len(alineacion_secuencia_1))
         fichero = open(nombre_fichero, "a+")
         fichero.write('\n')
         fichero.write(alineacion_secuencia_1 + '\n')
         fichero.write(alineacion_secuencia_2 + '\n')
+        fichero.write("Tamaño: " + str(len(alineacion_secuencia_1)) + '\n')
         fichero.close()
         print("\n")
         return
@@ -120,9 +126,6 @@ if __name__ == "__main__":
 
     secuencia_1 = "GCA"
     secuencia_2 = "AGCT"
-
-    #secuencia_1 = "ACTGATTCA"
-    #secuencia_2 = "ACGCATCA"
 
     # Numero de Columnas y Filas de la Matriz Final
     column = len(secuencia_1)+1
