@@ -76,34 +76,50 @@ def alineamiento_optimo(Final, i, j, alineacion_secuencia_1 = "", alineacion_sec
         print("\n")
         return
 
-    # Caso Recursivo - Cuando una celda tiene mas de una direccion
+    # Caso Recursivo - Cuando una celda tiene mas de una direccion        
     if len(Final[i][j][1])>1:
-        direcciones = Final[i][j][1]
-        for n in range(len(direcciones)):
-            Final[i][j][1] = direcciones[n]
-            alineamiento_optimo(Final, i, j, alineacion_secuencia_1, alineacion_secuencia_2)
+        directions = Final[i][j][1]
+        for n in directions:
+            #print(i , j, ' -- ', n) 
+            if n == 'D':
+                    alineacion_secuencia_1 = secuencia_1[j-1] + alineacion_secuencia_1
+                    alineacion_secuencia_2 = secuencia_2[i-1] + alineacion_secuencia_2
+                    alineamiento_optimo(Final, i-1, j-1, alineacion_secuencia_1, alineacion_secuencia_2)
+            elif n=='L':
+                    alineacion_secuencia_1 = alineacion_secuencia_1[+1:]
+                    alineacion_secuencia_2 = alineacion_secuencia_2[+1:]
+                    alineacion_secuencia_1 = secuencia_1[j-1] + alineacion_secuencia_1
+                    alineacion_secuencia_2 = "-" + alineacion_secuencia_2
+                    alineamiento_optimo(Final, i, j-1, alineacion_secuencia_1, alineacion_secuencia_2)
+            elif n=='U':
+                    alineacion_secuencia_1 = alineacion_secuencia_1[+1:]
+                    alineacion_secuencia_2 = alineacion_secuencia_2[+1:]
+                    alineacion_secuencia_1 = "-" + alineacion_secuencia_1   
+                    alineacion_secuencia_2 = secuencia_2[i-1] + alineacion_secuencia_2
+                    alineamiento_optimo(Final, i-1, j, alineacion_secuencia_1, alineacion_secuencia_2)
 
     # Caso Recursivo
-    else:
+    elif len(Final[i][j][1]) == 1:
         # D - Mismas Letras
         if Final[i][j][1] == 'D':
+            #print(i , j, ' - ', F[i][j][1])
             alineacion_secuencia_1 = secuencia_1[j-1] + alineacion_secuencia_1
             alineacion_secuencia_2 = secuencia_2[i-1] + alineacion_secuencia_2
-            i = i-1
-            j = j-1
+            alineamiento_optimo(Final, i-1, j-1, alineacion_secuencia_1, alineacion_secuencia_2)
+            
         # U - Diferentes Letras
         elif Final[i][j][1]=='L':
+            #print(i , j, ' - ', F[i][j][1])
             alineacion_secuencia_1 = secuencia_1[j-1] + alineacion_secuencia_1
             alineacion_secuencia_2 = "-" + alineacion_secuencia_2
-            j = j-1
-            
+            alineamiento_optimo(Final, i, j-1, alineacion_secuencia_1, alineacion_secuencia_2)
+
         # L - Diferentes Letras
         elif Final[i][j][1]=='U':
-            alineacion_secuencia_1 = "-" + alineacion_secuencia_1
+            #print(i , j, ' - ', F[i][j][1])
+            alineacion_secuencia_1 = "-" + alineacion_secuencia_1   
             alineacion_secuencia_2 = secuencia_2[i-1] + alineacion_secuencia_2
-            i = i-1
-
-        alineamiento_optimo(Final, i, j, alineacion_secuencia_1, alineacion_secuencia_2)			
+            alineamiento_optimo(Final, i-1, j, alineacion_secuencia_1, alineacion_secuencia_2) 			
 
 
 def alineacion_global(Final, i, j):
@@ -146,7 +162,7 @@ if __name__ == "__main__":
     #secuencia_1 = "AGC"
     #secuencia_2 = "AAAC"
 
-    secuencia_1 = "GGGGGGGACACCACA"
+    secuencia_1 = "GGGGGGGACACCACA" 
     secuencia_2 = "GGGCATGGACATTCTC"
 
     # Numero de Columnas y Filas de la Matriz Final
