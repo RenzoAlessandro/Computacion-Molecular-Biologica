@@ -29,22 +29,22 @@ def guardar_fichero(F):
     fichero.close()
 
     fichero = open(nombre_fichero, "r")
-    print(fichero.read())	
+    #print(fichero.read())	
 
 def alineamiento_optimo(Final, i, j, alineacion_secuencia_1 = "", alineacion_secuencia_2 = ""):
     # Caso Base - Cuando llegamos al Final
     if Final[i][j][0]==0:
-        print ("Subsecuencia: ")
-        print (alineacion_secuencia_1)
-        print (alineacion_secuencia_2)
-        print ("Tamaño: ", len(alineacion_secuencia_1))
+        #print ("Subsecuencia: ")
+        #print (alineacion_secuencia_1)
+        #print (alineacion_secuencia_2)
+        #print ("Tamaño: ", len(alineacion_secuencia_1))
         fichero = open(nombre_fichero, "a+")
         fichero.write('\n')
         fichero.write(alineacion_secuencia_1 + '\n')
         fichero.write(alineacion_secuencia_2 + '\n')
         fichero.write("Tamaño: " + str(len(alineacion_secuencia_1)) + '\n')
         fichero.close()
-        print("\n")
+        #print("\n")
         return
 
     if len(Final[i][j][1])>1:
@@ -124,8 +124,8 @@ def alineacion_local(Final, i, j):
 
 if __name__ == "__main__":
 
-    secuencia_1 = "GCA"
-    secuencia_2 = "AGCT"
+    secuencia_1 = "CCCCGCTAGGGG" 
+    secuencia_2 = "ATTTTCCCTATTCATGCTAGGGGCCAGGGAAAAGCTAGGGG"
 
     # Numero de Columnas y Filas de la Matriz Final
     column = len(secuencia_1)+1
