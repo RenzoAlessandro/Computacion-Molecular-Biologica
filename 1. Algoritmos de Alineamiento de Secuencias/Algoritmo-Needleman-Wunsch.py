@@ -2,7 +2,7 @@ import sys
 import numpy as np
 sys.setrecursionlimit(5000)
 
-nombre_fichero = "Comparacion_.txt"
+nombre_fichero = "Salida_Global_.txt"
 distancia = -2
 identicoMatch = 1
 noIdenticoMatch = -1
@@ -24,13 +24,13 @@ def guardar_fichero(F):
     for r in range(row):
         fichero.write(secuencia2_t[r])
         for c in range(column):
-            #fichero.write(' [ '+ '{}'.format(F[r][c][0])+'] ')
-            fichero.write(' [ '+ '{}'.format(F[r][c][0])+' '+'{}'.format(F[r][c][1])+'] ')
+            fichero.write(' [ '+ '{}'.format(F[r][c][0])+'] ')
+            #fichero.write(' [ '+ '{}'.format(F[r][c][0])+' '+'{}'.format(F[r][c][1])+'] ')
         fichero.write('\n')
     fichero.close()
 
     fichero = open(nombre_fichero, "r")
-    print(fichero.read())
+    #print(fichero.read())
 
 def get_score(secuencia1, secuencia2):
     score = 0
@@ -38,25 +38,25 @@ def get_score(secuencia1, secuencia2):
     for i in range(len(secuencia1)):
     # Mismas Letras
         if secuencia1[i] == secuencia2[i]:
-            print (identicoMatch, end='', sep='')
+            #print (identicoMatch, end='', sep='')
             secuencia3 = secuencia3 + str(identicoMatch)
             score = score + identicoMatch
         else:
             # Existe un GAB
             if secuencia1[i]=='-' or secuencia2[i]=='-':
-                print ('(',distancia,')', end='', sep='')
+                #print ('(',distancia,')', end='', sep='')
                 secuencia3 = secuencia3 + '(' + str(distancia) + ')'
                 score = score + distancia
             # Diferentes letras
             else:
-                print ('(',noIdenticoMatch ,')', end='', sep='')
+                #print ('(',noIdenticoMatch ,')', end='', sep='')
                 secuencia3 = secuencia3 + '(' + str(noIdenticoMatch) + ')'
                 score = score + noIdenticoMatch
-        print ('+', end='', sep='')
+        #print ('+', end='', sep='')
         secuencia3 = secuencia3 + '+'
-    print("\b",end="")
+    #print("\b",end="")
     secuencia3 = secuencia3 + ' = ' + str(score) + '\n'
-    print(' =', score)
+    #print(' =', score)
     fichero = open(nombre_fichero, "a+")
     fichero.write(secuencia3)
     fichero.close()
@@ -65,15 +65,15 @@ def get_score(secuencia1, secuencia2):
 def alineamiento_optimo(Final, i, j, alineacion_secuencia_1 = "", alineacion_secuencia_2 = ""):
     # Caso Base - Cuando llegamos al Final
     if Final[i][j][1]==0:
-        print(alineacion_secuencia_1)
-        print(alineacion_secuencia_2)
+        #print(alineacion_secuencia_1)
+        #print(alineacion_secuencia_2)
         fichero = open(nombre_fichero, "a+")
         fichero.write('\n')
         fichero.write(alineacion_secuencia_1 + '\n')
         fichero.write(alineacion_secuencia_2 + '\n')
         fichero.close()
         get_score(alineacion_secuencia_1, alineacion_secuencia_2)
-        print("\n")
+        #print("\n")
         return
 
     # Caso Recursivo - Cuando una celda tiene mas de una direccion        
@@ -163,7 +163,7 @@ if __name__ == "__main__":
     #secuencia_2 = "AAAC"
 
     secuencia_1 = "GGGGGGGACACCACA" 
-    secuencia_2 = "GGGCATGGACATTCTC"
+    secuencia_2 = "CAAATGCGCTAGGGGGGGACACCACA"
 
     # Numero de Columnas y Filas de la Matriz Final
     column = len(secuencia_1)+1
